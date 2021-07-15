@@ -20,16 +20,16 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 //Минимум ID - 1
 
 class MainActivity : AppCompatActivity() {
-    lateinit var imageView1: ImageView
-    lateinit var imageView2: ImageView
-    lateinit var imageView3: ImageView
-    lateinit var imageView4: ImageView
-    lateinit var imageView5: ImageView
-    lateinit var imageView6: ImageView
-    lateinit var imageView7: ImageView
-    lateinit var imageView8: ImageView
-    lateinit var imageView9: ImageView
-    lateinit var progressBar: ProgressBar
+    private lateinit var imageView1: ImageView
+    private lateinit var imageView2: ImageView
+    private lateinit var imageView3: ImageView
+    private lateinit var imageView4: ImageView
+    private lateinit var imageView5: ImageView
+    private lateinit var imageView6: ImageView
+    private lateinit var imageView7: ImageView
+    private lateinit var imageView8: ImageView
+    private lateinit var imageView9: ImageView
+    private lateinit var progressBar: ProgressBar
     private val cntImage = 9
     private val maxID = 41
     private val minID = 1
@@ -69,6 +69,8 @@ class MainActivity : AppCompatActivity() {
             try {
                 val listId = MutableList(maxID) { it + 1 }
                 while (cntAddress < cntImage) {
+                    if(listId.isEmpty())
+                        throw Exception("Not enough images")
                     val randomIndex = (minID..(maxID - cntAddress - 1)).random()
                     val response =
                         api.getCatData(listId[randomIndex].toString())
