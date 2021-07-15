@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private val maxID = 41
     private val minID = 1
     private val BASE_URL = "https://thatcopy.pw"
+    private var flagLoadedImage = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,9 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         loadImages()
 
-        progressBar.setOnClickListener {
-            loadImages()
-        }
+
 
     }
 
@@ -95,6 +94,13 @@ class MainActivity : AppCompatActivity() {
                 Picasso.with(applicationContext).load(listAddress[8])!!.into(imageView9)
                 progressBar.visibility = INVISIBLE
             } catch (e: Exception) {
+                flagLoadedImage = false
+                progressBar.setOnClickListener {
+                    if(!flagLoadedImage){
+                        flagLoadedImage = true
+                        loadImages()
+                    }
+                }
                 Toast.makeText(
                     applicationContext,
                     "Ошибка соединение или загрузки.\n" +
